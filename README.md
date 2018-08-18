@@ -31,14 +31,19 @@ If using version 0.6 or above, up to 16 joystick buttons are available. If you w
 If using Ninjhax press Start and Select to return to the Homebrew Loader, otherwise you can just exit with the Home button.
 
 ### Setup and Usage (Linux)
--For keyboard emulation
-Follow the Windows instructions, but use `3DSController.py` instead of the EXE.
+-For keyboard emulation you only need to run `3DSController.py`.
 
 -For Joystick emulation, first, install [python-uinput](https://github.com/tuomasjjrasanen/python-uinput). BEWARE: The latest release of this library as of the writing of this tutorial is 0.10.2 which is broken for most updated systems. Download the master branch directly.
 
-Make sure that uinput module is running. You can do it from cosole like so: `#!sudo modprobe uinput`
+Make sure that uinput module is running. You can do it from cosole like so: 
+`sudo modprobe uinput`
 
-Then, follow the Windows instructions, but use `3DSController_gamepad.py` instead of the EXE.
+Then, run `3DSController_gamepad.py` if you want to run it as a gamepad, however, sdl2 seems to not recognize it as a gamepad, and as most current games rely on it you'll need a few changes to get up and running:
+
+* using a tool like [gamepadtool](http://generalarcade.com/gamepadtool/) map the 3ds to a controller setting
+* add an enviroment variable to the text file located at `~/.xprofile` containing the string you got from the previous tool, for example:
+`export SDL_GAMECONTROLLERCONFIG="00000000707974686f6e2d75696e7000,python-uinput,a:b1,b:b0,x:b3,y:b2,back:b6,start:b7,leftshoulder:b4,rightshoulder:b5,dpup:b11,dpdown:b12,dpleft:b13,dpright:b14,leftx:a0,lefty:a1,platform:Linux,"` where you replace the text after `export SDL_GAMECONTROLLERCONFIG=` with whatever you got.
+* everything on ~/.xprofile runs at boot so these settings will be applied automaticaly upon reboot and steam and games will be able to recognize your controller with the settings you set.
 
 May work on OS X too, but this is not tested.
 
