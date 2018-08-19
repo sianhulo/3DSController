@@ -31,14 +31,22 @@ If using version 0.6 or above, up to 16 joystick buttons are available. If you w
 If using Ninjhax press Start and Select to return to the Homebrew Loader, otherwise you can just exit with the Home button.
 
 ### Setup and Usage (Linux)
--For keyboard emulation
-Follow the Windows instructions, but use `3DSController.py` instead of the EXE.
+-For keyboard emulation you only need to run `3DSController.py`.
 
 -For Joystick emulation, first, install [python-uinput](https://github.com/tuomasjjrasanen/python-uinput). BEWARE: The latest release of this library as of the writing of this tutorial is 0.10.2 which is broken for most updated systems. Download the master branch directly.
 
-Make sure that uinput module is running. You can do it from cosole like so: `#!sudo modprobe uinput`
+Make sure that uinput module is running. You can do it from cosole like so: 
+`sudo modprobe uinput`
 
-Then, follow the Windows instructions, but use `3DSController_gamepad.py` instead of the EXE.
+Then, run `3DSController_gamepad.py` if you want to run it as a gamepad, and this would be it for most applications, but I've found that some games can't recognize the 3ds as a gamepad, if you encounter that use the following:
+
+* Using a tool like [gamepadtool](http://generalarcade.com/gamepadtool/) map the 3ds to a controller setting
+* Export an enviroment variable with what you got with the previous tool, this can be the terminal where you plan to run the game from, or from lutris settings, for example:
+
+`export SDL_GAMECONTROLLERCONFIG="00000000707974686f6e2d75696e7000,python-uinput,a:b1,b:b0,x:b3,y:b2,back:b6,start:b7,leftshoulder:b4,rightshoulder:b5,dpup:b11,dpdown:b12,dpleft:b13,dpright:b14,leftx:a0,lefty:a1,platform:Linux,"`
+
+Where you replace the text after `export SDL_GAMECONTROLLERCONFIG=` with whatever you got from your configuration.
+* If you want this setting to every sdl2 game, you could add your `export SDL_GAMECONTROLLERCONFIG=` line to the end of `~/.xprofile` file, that way it'll be applied on boot (so it won't apply until you reboot).
 
 May work on OS X too, but this is not tested.
 
